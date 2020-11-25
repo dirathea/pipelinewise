@@ -44,6 +44,6 @@ jobs:
           push: true
           tags: dirathea/pipelinewise:${{ steps.vars.outputs.tag }}-${{ matrix.tap }}-${{ matrix.target }}
           build-args: |
-            connectors=tap-${{ matrix.tap }},target-${{ matrix.target }}
+            connectors=tap-${{ matrix.tap }},target-${{ matrix.target }},transform-field
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
