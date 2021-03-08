@@ -76,11 +76,17 @@ jobs:
       - checkout
 
       - run:
-          name: 'Check code formatting'
+          name: 'Install dependencies'
           command: |
             python3 -m venv .venv
             . .venv/bin/activate
+            pip install --upgrade pip setuptools wheel
             pip install -Ue .[test]
+
+      - run:
+          name: 'Check code formatting'
+          command: |
+            . .venv/bin/activate
             find pipelinewise tests -type f -name '*.py' | xargs unify --check-only
 
       - run:
@@ -93,7 +99,7 @@ jobs:
           name: 'Build source databases for integration tests'
           command: |
             sudo apt-get update
-            sudo apt install mariadb-client postgresql-client mongo-tools mbuffer
+            sudo apt install mariadb-client postgresql-client mongo-tools mbuffer gettext-base
             wget https://repo.mongodb.org/apt/ubuntu/dists/bionic/mongodb-org/4.2/multiverse/binary-amd64/mongodb-org-shell_4.2.7_amd64.deb
             sudo dpkg -i ./mongodb-org-shell_4.2.7_amd64.deb && rm mongodb-org-shell_4.2.7_amd64.deb
             ./dev-project/mongo/init_rs.sh
@@ -113,7 +119,7 @@ jobs:
             export PIPELINEWISE_HOME=$PWD
             mkdir test-reports
             coverage run -m pytest tests/units -v --junitxml=test-reports/junit.xml
-            coverage report
+            coverage report --fail-under=69 || { echo 'Coverage threshold of 69% not met!' ; exit 1; }
             coverage html -d coverage_html
 
       - run:
@@ -122,7 +128,7 @@ jobs:
             . .virtualenvs/pipelinewise/bin/activate
             export PIPELINEWISE_HOME=$PWD
             pytest tests/end_to_end -v
-          no_output_timeout: 15m
+          no_output_timeout: 30m
 
       - store_test_results:
           path: test-reports

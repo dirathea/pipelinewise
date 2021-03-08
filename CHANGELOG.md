@@ -1,3 +1,45 @@
+0.31.1 (2021-02-26)
+-------------------
+
+- Add support for AWS profile based authentication to FastSync tap-s3-csv.
+
+0.31.0 (2021-02-23)
+-------------------
+
+- Update TransferWise references to Wise
+- Bump `pipelinewise-tap-twilio` to `1.1.1`
+- Bump `psycopg-binary` from `2.8.5` to `2.8.6`
+
+0.30.0 (2021-01-22)
+-------------------
+
+- Drop postgres replication slot in case of full re-sync of a tap
+- Add `fastsync_parallelism` optional parameter to customize the number of cores to use for parallelisation in FastSync
+- Bump `pipelinewise-tap-twilio` to `1.0.2`
+
+0.29.0 (2021-01-13)
+-------------------
+
+- Add tap-twilio
+
+0.28.1 (2021-01-12)
+-------------------
+
+- patch `pipelinewise-tap-snowflake`
+- Bumping dependencies of Pipelinewise
+
+0.28.0 (2021-01-08)
+-------------------
+
+**New**
+- Support environement variables in tap yaml files and rendering them with jinja2 template.
+
+**Fixes**
+- bump pipelinewise-target-snowflake to 1.10.1
+- Map Mysql's `tinyint(1) unsigned` column type to targets' number column type
+- Bumping dependencies of Pipelinewise
+- Detect the copyright year dynamically
+
 0.27.0 (2020-12-04)
 -------------------
 
