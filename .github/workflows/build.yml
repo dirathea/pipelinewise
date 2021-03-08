@@ -19,6 +19,18 @@ jobs:
           - oracle
           - s3-csv
           - kafka
+          - snowflake
+          - mongodb
+          - salesforce
+          - zendesk
+          - jira
+          - zuora
+          - google-analytics
+          - github
+          - shopify
+          - slack
+          - mixpanel
+          - twilio
         target:
           - postgres
           - redshift
